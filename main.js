@@ -11,12 +11,11 @@ const scene = new THREE.Scene()
 scene.background = new THREE.Color('#000')
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({ 
-  canvas: document.querySelector('#background'),
-}); // turn on antialias
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) 
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.outputEncoding = THREE.sRGBEncoding 
+const renderer = new THREE.WebGLRenderer({antialias: true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+document.body.appendChild(renderer.domElement);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 100)
@@ -46,8 +45,22 @@ const sunLight2 = new THREE.DirectionalLight(0xfff, 0.5)
 sunLight2.position.set(0,20 ,-20)
 scene.add(sunLight2)
 
+
+const loadingManager = new THREE.LoadingManager();
+const progressBar = document.getElementById('progress-bar');
+loadingManager.onProgress = function(url, loaded, total) {
+  progressBar.value = (loaded /total) * 100;
+}
+
+const sections = document.querySelectorAll('.section');
+const progressBarContainer = document.getElementById('progress-bar-container');
+const sectionsContainer = document.getElementById('sections-container');
+loadingManager.onLoad = function() {
+  progressBarContainer.style.display = 'none';
+}
+
 // Models
-const loader = new GLTFLoader()
+const loader = new GLTFLoader(loadingManager);
 loader.load('models/gltf/minimalistic_modern_bedroom/scene.gltf', function (gltf) {
     scene.add(gltf.scene)
 })
@@ -88,7 +101,7 @@ ScrollTrigger.defaults({
   scrub: 2,
   ease: 'expo',
 })
-const sections = document.querySelectorAll('.section')
+
 
 // Section 0 to 1
 gsap.fromTo(camera.position, 
