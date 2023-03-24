@@ -47,16 +47,22 @@ scene.add(sunLight2)
 
 
 const loadingManager = new THREE.LoadingManager();
+
+var body = document.body;
+loadingManager.onStart = function(url, item, total) {
+  body.style.overflowY = 'hidden';
+}
+
+
 const progressBar = document.getElementById('progress-bar');
 loadingManager.onProgress = function(url, loaded, total) {
   progressBar.value = (loaded /total) * 100;
 }
 
-const sections = document.querySelectorAll('.section');
 const progressBarContainer = document.getElementById('progress-bar-container');
-const sectionsContainer = document.getElementById('sections-container');
 loadingManager.onLoad = function() {
   progressBarContainer.style.display = 'none';
+  introAnimation();
 }
 
 // Models
@@ -90,11 +96,10 @@ function introAnimation() {
     }, 7000)
     .delay(1000).easing(TWEEN.Easing.Quartic.InOut).start()
     .onComplete(function () { 
-        TWEEN.remove(this)
+      body.style.overflowY = 'scroll';
+      TWEEN.remove(this)
     })
 }
-
-introAnimation()
 
 gsap.registerPlugin(ScrollTrigger)
 ScrollTrigger.defaults({
@@ -103,6 +108,7 @@ ScrollTrigger.defaults({
 })
 
 
+const sections = document.querySelectorAll('.section');
 // Section 0 to 1
 gsap.fromTo(camera.position, 
   {
