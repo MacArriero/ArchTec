@@ -121,9 +121,9 @@ gsap.fromTo(camera.position,
   y:0.9039492160623402,
   z:23.06432716930966,
   scrollTrigger: {
-      trigger: sections[1],
-      start: "top 80%",
-      end: "bottom 30%",
+    trigger: sections[1],
+    start: "top 80%",
+    end: "bottom 30%",
   }
 })
 
@@ -189,8 +189,6 @@ gsap.fromTo(camera.position,
       end: "bottom 30%",
     }
 })
-
-
 
 function renderLoop() {
   TWEEN.update()
