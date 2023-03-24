@@ -122,10 +122,37 @@ gsap.fromTo(camera.position,
   z:23.06432716930966,
   scrollTrigger: {
       trigger: sections[1],
-      start: "top top",
-      end: "bottom bottom",
+      start: "top 80%",
+      end: "bottom 30%",
   }
 })
+
+gsap.to(".header", {top: 0, duration: 1, 
+  scrollTrigger: {
+  trigger: sections[1],
+  start: "top 80%",
+  end: "bottom 30%",
+  }
+});
+
+gsap.to("#brand-name", {
+  fontSize: 60,
+  scrollTrigger: {
+    trigger: sections[1],
+    start: "top 80%",
+    end: "bottom 30%",
+  }
+});
+
+gsap.to("#logo", {
+  height: 48,
+  width: 48,
+  scrollTrigger: {
+    trigger: sections[1],
+    start: "top 80%",
+    end: "bottom 30%",
+  }
+});
 
 // Section 1 to 2
 gsap.fromTo(camera.position, 
@@ -140,8 +167,8 @@ gsap.fromTo(camera.position,
     z: 25.57455,
     scrollTrigger: {
       trigger: sections[2],
-      start: "top top",
-      end: "bottom bottom",
+      start: "top 80%",
+      end: "bottom 30%",
     }
 })
 
@@ -158,8 +185,8 @@ gsap.fromTo(camera.position,
     z:44.99851089946747,
     scrollTrigger: {
       trigger: sections[3],
-      start: "top top",
-      end: "bottom bottom",
+      start: "top 80%",
+      end: "bottom 30%",
     }
 })
 
