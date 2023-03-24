@@ -35,6 +35,9 @@ window.addEventListener('resize', () => {
 
 // Orbit Controls - to move around during development
 const controls = new OrbitControls(camera, renderer.domElement)
+// controls.addEventListener("change", event => {  
+//   console.log( controls.object.position); 
+// });
 
 // Lighting
 const sunLight = new THREE.DirectionalLight(0xe8c37b, 0.5)
@@ -78,7 +81,6 @@ loader.load('models/gltf/small_modern_kitchen/scene.gltf', function (gltf) {
 
 loader.load('models/gltf/white_modern_living_room/scene.gltf', function (gltf) {
   gltf.scene.position.set(0, 0, 40);
-  gltf.scene.rotateY(4.71239);
   scene.add(gltf.scene)
 })
 
@@ -154,6 +156,15 @@ gsap.to("#logo", {
   }
 });
 
+gsap.to(".design-title", {
+  color: "#2D2A27",
+  scrollTrigger: {
+    trigger: sections[1],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
 // Section 1 to 2
 gsap.fromTo(camera.position, 
   {
@@ -172,6 +183,24 @@ gsap.fromTo(camera.position,
     }
 })
 
+gsap.to(".design-title", {
+  color: "transparent",
+  scrollTrigger: {
+    trigger: sections[2],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+gsap.to(".lifestyle-title", {
+  color: "#2D2A27",
+  scrollTrigger: {
+    trigger: sections[2],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
 // Section 2 to 3
 gsap.fromTo(camera.position, 
   { 
@@ -180,15 +209,80 @@ gsap.fromTo(camera.position,
     z: 25.57455
   },
   {
-    x:0.30838758424125756,
-    y:0.8632384475134502,
-    z:44.99851089946747,
+    x:-0.7407325853596494,
+    y:0.6298891862538815,
+    z:42.74866059604781,
     scrollTrigger: {
       trigger: sections[3],
       start: "top 80%",
       end: "bottom 30%",
     }
 })
+
+gsap.to(".lifestyle-title", {
+  color: "transparent",
+  scrollTrigger: {
+    trigger: sections[3],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+gsap.to(".technology-title", {
+  color: "#E8E2DA",
+  scrollTrigger: {
+    trigger: sections[3],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+// Section 3 to 4
+gsap.fromTo(camera.position, 
+  { 
+    x:-0.7407325853596494,
+    y:0.6298891862538815,
+    z:42.74866059604781,
+  },
+  {
+    x:0.49977949383732434,
+    y:1.3458372689312172,
+    z:38.56393155516896,
+    scrollTrigger: {
+      trigger: sections[4],
+      start: "top top",
+      end: "bottom bottom",
+    }
+})
+
+gsap.to(".technology-title", {
+  color: "transparent",
+  scrollTrigger: {
+    trigger: sections[4],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+gsap.to(".section", {
+  backgroundColor: "black",
+  scrollTrigger: {
+    trigger: sections[4],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+gsap.to(".collection-title", {
+  color: "#E8E2DA",
+  scrollTrigger: {
+    trigger: sections[4],
+    start: "top top",
+    end: "bottom bottom",
+  }
+})
+
+
 
 function renderLoop() {
   TWEEN.update()
