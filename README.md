@@ -1,6 +1,3 @@
-# ArchTec
-
-
 <h1 align="center">ArchiTech</h1>
 <h3 align="center">A startup concept developed by Mac Arriero using Threejs and GreenSock</h3>
 
