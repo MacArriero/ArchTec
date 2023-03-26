@@ -79,7 +79,7 @@ h2 {
 
 p {
   font-weight: 400;
-  font-size: 3vw;
+  font-size: 2vw;
   line-height: 100%;
   text-align: center;
 }
@@ -161,6 +161,7 @@ label {
   padding: 0 4px;
   width: 100vw;
   height: 100vh;
+  overflow-y: auto;
 }
 
 .tv .column {
