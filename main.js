@@ -158,6 +158,7 @@ gsap.to("#logo", {
 
 gsap.to(".design-title", {
   color: "#2D2A27",
+  zIndex: 10,
   scrollTrigger: {
     trigger: sections[1],
     start: "top top",
@@ -194,6 +195,7 @@ gsap.to(".design-title", {
 
 gsap.to(".lifestyle-title", {
   color: "#2D2A27",
+  zIndex: 10,
   scrollTrigger: {
     trigger: sections[2],
     start: "top top",
@@ -230,6 +232,7 @@ gsap.to(".lifestyle-title", {
 
 gsap.to(".technology-title", {
   color: "#E8E2DA",
+  zIndex: 10,
   scrollTrigger: {
     trigger: sections[3],
     start: "top top",
@@ -283,7 +286,6 @@ gsap.to(".collection-title", {
 })
 
 
-
 function renderLoop() {
   TWEEN.update()
   controls.update() /
@@ -297,3 +299,63 @@ renderLoop() //start rendering
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 }
+
+const sliders = [...document.querySelectorAll(".slider_container")];
+
+sliders.forEach((slider, i) => {
+  let isDragStart = false,
+      isDragging = false,
+      isSlide = false,
+      prevPageX,
+      prevScrollLeft,
+      positionDiff;
+
+  const sliderItem = slider.querySelector(".slider_item");
+  var isMultislide = (slider.dataset.multislide === 'true');
+
+  function autoSlide() {
+    if(slider.scrollLeft - (slider.scrollWidth - slider.clientWidth) > -1 || slider.scrollLeft <= 0) return;
+    positionDiff = Math.abs(positionDiff);
+    let slideWidth = isMultislide ? slider.clientWidth : sliderItem.clientWidth;
+    let valDifference = slideWidth - positionDiff;
+    if(slider.scrollLeft > prevScrollLeft) {
+        return slider.scrollLeft += positionDiff > slideWidth / 5 ? valDifference : -positionDiff;
+    }
+    slider.scrollLeft -= positionDiff > slideWidth / 5 ? valDifference : -positionDiff;
+  }
+
+  function dragStart(e) {
+    if (isSlide) return;
+    isSlide = true;
+    isDragStart = true;
+    prevPageX = e.pageX || e.touches[0].pageX;
+    prevScrollLeft = slider.scrollLeft;
+    setTimeout(function(){ isSlide = false; }, 700);
+  }
+
+  function dragging(e) {
+    if(!isDragStart) return;
+    e.preventDefault();
+    isDragging = true;
+    slider.classList.add("dragging");
+    positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
+    slider.scrollLeft = prevScrollLeft - positionDiff;
+  }
+
+  function dragStop() {
+    isDragStart = false;
+    slider.classList.remove("dragging");
+    if(!isDragging) return;
+    isDragging = false;
+    autoSlide();
+  }
+
+  addEventListener("resize", autoSlide);
+  slider.addEventListener("mousedown", dragStart);
+  slider.addEventListener("touchstart", dragStart);
+  slider.addEventListener("mousemove", dragging);
+  slider.addEventListener("touchmove", dragging);
+  slider.addEventListener("mouseup", dragStop);
+  slider.addEventListener("touchend", dragStop);
+  slider.addEventListener("mouseleave", dragStop);
+});
